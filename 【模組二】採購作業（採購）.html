@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>採購作業</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+
+  <div class="container">
+    <h2 class="mb-4">採購作業</h2>
+    <form id="purchaseForm">
+      
+      <!-- 顯示訂單資訊 -->
+      <div class="mb-3">
+        <label class="form-label">訂單編號</label>
+        <input type="text" class="form-control" name="orderId" readonly value="ORD20250507001">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">客戶名稱</label>
+        <input type="text" class="form-control" name="customerName" readonly value="永豐電子股份有限公司">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">預計交期</label>
+        <input type="date" class="form-control" name="expectedDeliveryDate" readonly value="2025-05-15">
+      </div>
+
+      <hr>
+
+      <!-- 採購單資訊 -->
+      <div class="mb-3">
+        <label class="form-label">採購單編號</label>
+        <input type="text" class="form-control" name="purchaseId" readonly value="PO20250507001">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">廠商名稱</label>
+        <input type="text" class="form-control" name="vendorName" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">預計到貨日</label>
+        <input type="date" class="form-control" name="arrivalDate" required>
+      </div>
+
+      <!-- 商品採購明細 -->
+      <h5 class="mt-4">商品採購明細</h5>
+      <div id="purchaseList">
+        <div class="row g-2 mb-2 purchase-item">
+          <div class="col-md-4">
+            <input type="text" class="form-control" name="productName[]" placeholder="商品名稱" required>
+          </div>
+          <div class="col-md-2">
+            <input type="number" class="form-control" name="quantity[]" placeholder="數量" required>
+          </div>
+          <div class="col-md-2">
+            <input type="number" step="0.01" class="form-control" name="unitPrice[]" placeholder="單價" required>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-secondary mb-3" onclick="addPurchaseItem()">＋ 新增商品</button>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">建立採購單</button>
+        <button type="button" class="btn btn-success" onclick="alert('通知廠商成功！（模擬）')">通知廠商</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="history.back()">返回</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function addPurchaseItem() {
+      const container = document.getElementById('purchaseList');
+      const newRow = document.createElement('div');
+      newRow.className = 'row g-2 mb-2 purchase-item';
+      newRow.innerHTML = `
+        <div class="col-md-4">
+          <input type="text" class="form-control" name="productName[]" placeholder="商品名稱" required>
+        </div>
+        <div class="col-md-2">
+          <input type="number" class="form-control" name="quantity[]" placeholder="數量" required>
+        </div>
+        <div class="col-md-2">
+          <input type="number" step="0.01" class="form-control" name="unitPrice[]" placeholder="單價" required>
+        </div>
+      `;
+      container.appendChild(newRow);
+    }
+
+    document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('採購單已建立！（前端模擬）');
+      // 這裡可以加入送出 API 的程式碼
+    });
+  </script>
+
+</body>
+</html>
